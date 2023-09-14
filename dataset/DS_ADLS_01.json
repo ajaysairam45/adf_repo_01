@@ -5,17 +5,6 @@
 			"referenceName": "AJAY_LS_ADLS_01",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"ContainerName": {
-				"type": "string"
-			},
-			"FilePath": {
-				"type": "string"
-			},
-			"FileName": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

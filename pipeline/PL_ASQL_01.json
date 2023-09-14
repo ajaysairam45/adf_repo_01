@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "Select TOP 1 * FROM INFORMATION_SCHEMA.TABLES where\nTABLE_TYPE = 'BASE TABLE'",
+						"sqlReaderQuery": "Select TOP 3 * FROM INFORMATION_SCHEMA.TABLES where\nTABLE_TYPE = 'BASE TABLE'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -63,7 +63,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT * FROM', item().TABLE_SCHEMA,'.',item().Table_NAME)",
+										"value": "@concat('SELECT * FROM ', item().TABLE_SCHEMA,'.', item().Table_NAME)",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -98,7 +98,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_ADLS_01",
+									"referenceName": "DS_ADLS_01_Backup",
 									"type": "DatasetReference",
 									"parameters": {
 										"ContainerName": "raw",
@@ -107,7 +107,7 @@
 											"type": "Expression"
 										},
 										"FileName": {
-											"value": "@concat(item().Table_NAME,'.csv')",
+											"value": "@concat(item().Table_name,'.csv')",
 											"type": "Expression"
 										}
 									}
