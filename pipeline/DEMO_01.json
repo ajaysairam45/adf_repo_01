@@ -1,0 +1,28 @@
+{
+	"name": "DEMO_01",
+	"properties": {
+		"activities": [
+			{
+				"name": "TimeToWait",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.timetoWait",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"timetoWait": {
+				"type": "int",
+				"defaultValue": 10
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-09-13T03:50:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

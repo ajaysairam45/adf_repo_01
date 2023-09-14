@@ -1,0 +1,25 @@
+{
+	"name": "DS_ADLS_01",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AJAY_LS_ADLS_01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "customers-100.txt",
+				"folderPath": "Customer",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
