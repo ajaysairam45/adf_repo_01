@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "Select TOP 3 * FROM INFORMATION_SCHEMA.TABLES where\nTABLE_TYPE = 'BASE TABLE'",
+						"sqlReaderQuery": "Select  * FROM INFORMATION_SCHEMA.TABLES where\nTABLE_TYPE = 'BASE TABLE'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
