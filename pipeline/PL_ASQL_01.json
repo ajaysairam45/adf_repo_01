@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT TOP 5 * FROM SalesLT.Address",
+						"sqlReaderQuery": "Select TOP 1 * FROM INFORMATION_SCHEMA.TABLES where\nTABLE_TYPE = 'BASE TABLE'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -48,21 +48,68 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Set variable1",
-							"type": "SetVariable",
+							"name": "CopyData",
+							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
 								"secureInput": false
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "Value",
-								"value": {
-									"value": "@item().CountryRegion",
-									"type": "Expression"
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": "Select TOP 1 * FROM INFORMATION_SCHEMA.TABLES where\nTABLE_TYPE = 'BASE TABLE'",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
 								}
-							}
+							},
+							"inputs": [
+								{
+									"referenceName": "ASQL_01",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_ADLS_01",
+									"type": "DatasetReference",
+									"parameters": {
+										"ContainerName": "raw",
+										"FilePath": {
+											"value": "@item().TABLE_SCHEMA",
+											"type": "Expression"
+										},
+										"FileName": {
+											"value": "@item().Table_NAME",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
 					]
 				}
